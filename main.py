@@ -1,5 +1,15 @@
 import tkinter as tk
 from tkinter import messagebox
+import json
+import os
+
+DATA_FILE = "task.json"
+
+
+def save_task():
+    tasks = list_box.get(0, tk.END)
+    with open(DATA_FILE, "w") as f:
+        json.dump(tasks, f, indent=4)
 
 
 def add_task():
@@ -7,6 +17,7 @@ def add_task():
     if task != "":
         list_box.insert(tk.END, task)
         entry.delete(0, tk.END)
+        save_task()
     else:
         messagebox.showwarning("Warning", "Please enter a task!")
 
@@ -15,6 +26,7 @@ def delete_task():
     try:
         selected_task_index = list_box.curselection()[0]
         list_box.delete(selected_task_index)
+        save_task()
     except IndexError:
         messagebox.showwarning("Warning", "Please select a task to delete!")
 
