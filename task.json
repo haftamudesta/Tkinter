@@ -1,11 +1,5 @@
 [
-    [
-        "task one",
-        "task two"
-    ],
-    [
-        "task one",
-        "task two"
-    ],
-    "task three"
+    "task three",
+    "task one",
+    "task two"
 ]
