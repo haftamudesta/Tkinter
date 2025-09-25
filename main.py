@@ -19,6 +19,9 @@ def load_task():
 
 def save_task():
     tasks = list_box.get(0, tk.END)
+    if not tasks:
+        messagebox.showwarning("Warning", "No tasks to save!")
+        return
     with open(DATA_FILE, "w") as f:
         json.dump(tasks, f, indent=4)
 
@@ -48,6 +51,7 @@ def clear_all_tasks():
             "Confirm", "Are you sure you want to delete all tasks?")
         if response:
             list_box.delete(0, tk.END)
+            save_task()
     else:
         messagebox.showinfo("Info", "No tasks to clear!")
 
@@ -70,6 +74,9 @@ clear_button.pack(pady=5)
 
 list_box = tk.Listbox(root, width=50, height=15, selectmode=tk.SINGLE)
 list_box.pack(pady=10)
+
+root.bind('<Return>', lambda event: add_task())
+root.bind('<Delete>', lambda event: delete_task())
 
 load_task()
 
