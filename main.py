@@ -6,6 +6,17 @@ import os
 DATA_FILE = "task.json"
 
 
+def load_task():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r") as f:
+            try:
+                tasks = json.load(f)
+                for task in tasks:
+                    list_box.insert(tk.END, tasks)
+            except json.JSONDecodeError:
+                pass
+
+
 def save_task():
     tasks = list_box.get(0, tk.END)
     with open(DATA_FILE, "w") as f:
@@ -45,5 +56,7 @@ delete_button.pack(pady=5)
 
 list_box = tk.Listbox(root, width=50, height=15, selectmode=tk.SINGLE)
 list_box.pack(pady=10)
+
+load_task()
 
 root.mainloop()
