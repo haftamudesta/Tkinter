@@ -28,5 +28,10 @@ to_combo = ttk.Combobox(window, values=list(
     exchange_rates.keys()), font=("Arial", 12))
 to_combo.pack()
 
+tk.Button(window, text="Convert", font=(
+    "Arial", 12), bg="lightblue").pack(pady=10)
 
+result_label = tk.Label(window, text="", font=(
+    "Arial", 12))
+result_label.pack()
 window.mainloop()
