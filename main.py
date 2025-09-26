@@ -9,6 +9,23 @@ exchange_rates = {
     "GPY": 146.55,
 }
 
+
+def convert_currency():
+    try:
+        amount = float(amount_entry.get())
+        from_currency = from_combo.get()
+        to_currency = to_combo.get()
+        if from_currency and to_currency:
+            usd_amount = amount/exchange_rates[from_currency]
+            converted = usd_amount*exchange_rates[to_currency]
+            result_label.config(
+                text=f"{amount} {from_currency}={converted:.2f} {to_currency}")
+        else:
+            messagebox.showerror("Error,Please select currency")
+    except ValueError:
+        messagebox.showerror("Error,Enter a valid Amount.")
+
+
 window = tk.Tk()
 
 window.title("Currency Convertor")
@@ -29,7 +46,7 @@ to_combo = ttk.Combobox(window, values=list(
 to_combo.pack()
 
 tk.Button(window, text="Convert", font=(
-    "Arial", 12), bg="lightblue").pack(pady=10)
+    "Arial", 12), bg="lightblue", command=convert_currency).pack(pady=10)
 
 result_label = tk.Label(window, text="", font=(
     "Arial", 12))
