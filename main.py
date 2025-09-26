@@ -6,7 +6,7 @@ exchange_rates = {
     "EUR": 0.92,
     "INR": 87.1,
     "GBP": 0.78,
-    "GPY": 146.55,
+    "JPY": 146.55,
 }
 
 
@@ -27,26 +27,31 @@ def convert_currency():
 
 
 window = tk.Tk()
-
 window.title("Currency Convertor")
 window.geometry("400x250")
+window.resizable(False, False)
 
 tk.Label(window, text="Amount", font=("Arial", 12)).pack()
 amount_entry = tk.Entry(window, font=("Arial", 12))
 amount_entry.pack()
+amount_entry.focus()
 
 tk.Label(window, text="From Currency", font=("Arial", 12)).pack()
 from_combo = ttk.Combobox(window, values=list(
-    exchange_rates.keys()), font=("Arial", 12))
+    exchange_rates.keys()), font=("Arial", 12), state="readonly")
 from_combo.pack()
+from_combo.set("USD")  # Set default value
 
 tk.Label(window, text="To Currency", font=("Arial", 12)).pack()
 to_combo = ttk.Combobox(window, values=list(
-    exchange_rates.keys()), font=("Arial", 12))
+    exchange_rates.keys()), font=("Arial", 12), state="readonly")
 to_combo.pack()
+to_combo.set("EUR")  # Set default value
 
 tk.Button(window, text="Convert", font=(
     "Arial", 12), bg="lightblue", command=convert_currency).pack(pady=10)
+# Bind Enter key to convert function
+window.bind('<Return>', lambda event: convert_currency())
 
 result_label = tk.Label(window, text="", font=(
     "Arial", 12))
