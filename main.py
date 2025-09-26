@@ -1,17 +1,37 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+import requests
+import json
+from datetime import datetime
 
-exchange_rates = {
-    "USD": 1.0,
-    "EUR": 0.92,
-    "INR": 87.1,
-    "GBP": 0.78,
-    "JPY": 146.55,
-    "CAD": 1.35,
-    "AUD": 1.52,
-    "CHF": 0.88,
-    "CNY": 7.18,
-}
+exchange_rates = {"USD": 1.0}
+
+
+def fetch_exchange_rates():
+    try:
+        response = requests.get(
+            "https://api.exchangerate-api.com/v4/latest/USD", timeout=10)
+
+        if response.status_code == 200:
+            data = response.json()
+            rates = data.get('rates', {})
+            if rates:
+                exchange_rates.update(rates)
+                exchange_rates["USD"] = 1.0
+                sorted_currencies = sorted(exchange_rates.keys())
+                exchange_rates.update(sorted_currencies)
+
+            last_updated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            return True, "Rates updated successfully!"
+        else:
+            return False, "Failed to fetch rates. Using cached rates."
+    except requests.exceptions.RequestException as e:
+        return False, f"Network error: {str(e)}. Using cached rates."
+    except Exception as e:
+        return False, f"Error: {str(e)}. Using cached rates."
+
+
+fetch_exchange_rates()
 
 
 def convert_currency():
@@ -31,7 +51,7 @@ def convert_currency():
 
 
 window = tk.Tk()
-window.title("Currency Convertor")
+window.title("Currency Converter with Real-Time Rates")
 window.geometry("400x250")
 window.resizable(False, False)
 
@@ -41,6 +61,7 @@ amount_entry.pack()
 amount_entry.focus()
 
 tk.Label(window, text="From Currency", font=("Arial", 12)).pack()
+
 from_combo = ttk.Combobox(window, values=list(
     exchange_rates.keys()), font=("Arial", 12), state="readonly")
 from_combo.pack()
@@ -60,4 +81,5 @@ window.bind('<Return>', lambda event: convert_currency())
 result_label = tk.Label(window, text="", font=(
     "Arial", 12))
 result_label.pack()
+
 window.mainloop()
