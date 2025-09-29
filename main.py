@@ -2,22 +2,22 @@ import tkinter as tk
 
 
 class MyApp(tk.Frame):
-    def __init__(self, root):
+    def __init__(self, window):
         self.color1 = "#222448"
         self.color2 = "54527E"
         self.color3 = "WHITE"
         super().__init__(
-            root,
+            window,
             bg=self.color1
         )
         self.main_frame = self
         self.main_frame.pack(fill=tk.BOTH, expand=True)
-        self.main_frame.coluumnconfigure(0, weight=1)
+        self.main_frame.columnconfigure(0, weight=1)
         self.main_frame.rowconfigure(0, weight=1)
 
     def load_main_widgets(self):
-        self.create_page_container()
-        self.create_pager()
+        self.create_page_container(self)
+        self.create_pager(self)
 
     def create_page_container(self):
         self.page_container = tk.Frame(
@@ -29,12 +29,22 @@ class MyApp(tk.Frame):
         self.page_container.rowconfigure(1, weight=1)
         self.page_container.grid(column=0, row=0, sticky=tk.NSEW)
 
-    def create_pager():
-        pass
+    def create_pager(self):
+        self.pager = tk.Frame(
+            self.main_frame,
+            background=self.color1,
+            height=125,
+            width=400,
+        )
+        self.pager.columnconfigure(1, weight=1)
+        self.pager.rowconfigure(0, weight=1)
+        self.pager.grid(column=0, row=1, sticky=tk.NS)
+        self.pager.grid_propagate(0)
 
 
 window = tk.Tk()
 window.title("Multipage App")
 window.geometry("700x500")
 window.resizable(width=False, height=False)
+multi_page = MyApp(window)
 window.mainloop()
