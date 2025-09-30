@@ -3,6 +3,8 @@ import tkinter as tk
 
 class MyApp(tk.Frame):
     def __init__(self, window):
+        self.current_page_index = 0
+        self.pages = [self.page1, self.page2, self.page3, self.page4]
         self.color1 = "#222448"
         self.color2 = "#54527E"
         self.color3 = "WHITE"
@@ -19,6 +21,7 @@ class MyApp(tk.Frame):
     def load_main_widgets(self):
         self.create_page_container()
         self.create_pager()
+        self.pages[self.current_page_index]()
 
     def create_page_container(self):
         self.page_container = tk.Frame(
@@ -63,8 +66,7 @@ class MyApp(tk.Frame):
             self.pager,
             background=self.color1,
             foreground=self.color3,
-            font=("Arial", 18),
-            text="Page 1"
+            font=("Arial", 18)
         )
         self.page_number.grid(column=1, row=0)
 
@@ -95,7 +97,7 @@ class MyApp(tk.Frame):
         title.grid(column=0, row=0)
         text = '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'''
         content = tk.Label(
-            self.main_frame,
+            self.page_container,
             background=self.color2,
             foreground=self.color3,
             justify=tk.LEFT,
