@@ -83,6 +83,102 @@ class MyApp(tk.Frame):
         )
         next_button.grid(column=2, row=0)
 
+    def page1(self):
+        title = tk.Label(
+            self.page_container,
+            background=self.color1,
+            foreground=self.color2,
+            height=2,
+            font=("Arial", 26, "bold"),
+            text="Page 1"
+        )
+        title.grid(column=0, row=0)
+        text = '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'''
+        content = tk.Label(
+            self.main_frame,
+            background=self.color2,
+            foreground=self.color3,
+            justify=tk.LEFT,
+            anchor=tk.N,
+            pady=20,
+            font=("Arial", 16),
+            text=text,
+            wraplength=600
+        )
+        content.grid(column=0, row=1, sticky=tk.NSEW)
+
+    def page2(self):
+        title = tk.Label(
+            self.page_container,
+            background=self.color1,
+            foreground=self.color2,
+            height=2,
+            font=("Arial", 26, "bold"),
+            text="Page 2"
+        )
+        title.grid(column=0, row=0)
+        text = '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit.'''
+        content = tk.Label(
+            self.main_frame,
+            background=self.color2,
+            foreground=self.color3,
+            justify=tk.LEFT,
+            anchor=tk.N,
+            pady=20,
+            font=("Arial", 16),
+            text=text,
+            wraplength=600
+        )
+        content.grid(column=0, row=1, sticky=tk.NSEW)
+
+    def page3(self):
+        title = tk.Label(
+            self.page_container,
+            background=self.color1,
+            foreground=self.color2,
+            height=2,
+            font=("Arial", 26, "bold"),
+            text="Page 3"
+        )
+        title.grid(column=0, row=0)
+        text = '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'''
+        content = tk.Label(
+            self.main_frame,
+            background=self.color2,
+            foreground=self.color3,
+            justify=tk.LEFT,
+            anchor=tk.N,
+            pady=20,
+            font=("Arial", 16),
+            text=text,
+            wraplength=600
+        )
+        content.grid(column=0, row=1, sticky=tk.NSEW)
+
+    def page4(self):
+        title = tk.Label(
+            self.page_container,
+            background=self.color1,
+            foreground=self.color2,
+            height=2,
+            font=("Arial", 26, "bold"),
+            text="Page 3"
+        )
+        title.grid(column=0, row=0)
+        text = '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'''
+        content = tk.Label(
+            self.main_frame,
+            background=self.color2,
+            foreground=self.color3,
+            justify=tk.LEFT,
+            anchor=tk.N,
+            pady=20,
+            font=("Arial", 16),
+            text=text,
+            wraplength=600
+        )
+        content.grid(column=0, row=1, sticky=tk.NSEW)
+
 
 window = tk.Tk()
 window.title("Multipage App")
