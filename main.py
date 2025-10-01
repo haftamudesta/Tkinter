@@ -16,6 +16,7 @@ class MyApp(tk.Frame):
         self.main_frame.pack(fill=tk.BOTH, expand=True)
         self.main_frame.columnconfigure(0, weight=1)
         self.main_frame.rowconfigure(0, weight=1)
+        self.main_frame.rowconfigure(1, weight=0)
         self.load_main_widgets()
 
     def load_main_widgets(self):
@@ -24,8 +25,8 @@ class MyApp(tk.Frame):
         self.pages[self.current_page_index]()
 
     def clear_frame(self, frame):
-        for child in frame.winfo_children():
-            child.destroy()
+        for widget in self.page_container.winfo_children():
+            widget.destroy()
 
     def create_page_container(self):
         self.page_container = tk.Frame(
@@ -50,6 +51,25 @@ class MyApp(tk.Frame):
         self.pager.grid(column=0, row=1, sticky=tk.NSEW)
         self.pager.grid_propagate(0)
 
+        def change_page(button):
+            self.clear_frame(self.main_frame)
+            match button:
+                case "Previous":
+                    self.current_page_index -= 1
+                    self.pages[self.current_page_index]()
+                case "Next":
+                    self.current_page_index += 1
+                    self.pages[self.current_page_index]()
+            if self.current_page_index == 0:
+                prev_button.config(state=tk.DISABLED)
+            else:
+                prev_button.config(state=tk.ACTIVE)
+            if self.current_page_index == len(self.pages)-1:
+                next_button.config(state=tk.DISABLED)
+            else:
+                next_button.config(state=tk.ACTIVE)
+            self.page_number["text"] = f'{self.current_page_index+1}/{len(self.pages)}'
+
         prev_button = tk.Button(
             self.pager,
             background=self.color2,
@@ -62,7 +82,8 @@ class MyApp(tk.Frame):
             font=("Arial", 18),
             cursor="hand1",
             text="Previous",
-            state=tk.DISABLED
+            state=tk.DISABLED,
+            command=lambda buuton="Previous": change_page(buuton)
         )
         prev_button.grid(column=0, row=0)
 
@@ -70,7 +91,8 @@ class MyApp(tk.Frame):
             self.pager,
             background=self.color1,
             foreground=self.color3,
-            font=("Arial", 18)
+            font=("Arial", 18),
+            text=f'{self.current_page_index+1}/{len(self.pages)}'
         )
         self.page_number.grid(column=1, row=0)
 
@@ -85,7 +107,8 @@ class MyApp(tk.Frame):
             relief=tk.FLAT,
             font=("Arial", 18),
             cursor="hand1",
-            text="Next"
+            text="Next",
+            command=lambda buuton="Next": change_page(buuton)
         )
         next_button.grid(column=2, row=0)
 
@@ -125,7 +148,7 @@ class MyApp(tk.Frame):
         title.grid(column=0, row=0)
         text = '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit.'''
         content = tk.Label(
-            self.main_frame,
+            self.page_container,
             background=self.color2,
             foreground=self.color3,
             justify=tk.LEFT,
@@ -149,7 +172,7 @@ class MyApp(tk.Frame):
         title.grid(column=0, row=0)
         text = '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'''
         content = tk.Label(
-            self.main_frame,
+            self.page_container,
             background=self.color2,
             foreground=self.color3,
             justify=tk.LEFT,
@@ -173,7 +196,7 @@ class MyApp(tk.Frame):
         title.grid(column=0, row=0)
         text = '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'''
         content = tk.Label(
-            self.main_frame,
+            self.page_container,
             background=self.color2,
             foreground=self.color3,
             justify=tk.LEFT,
