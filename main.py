@@ -23,6 +23,10 @@ class MyApp(tk.Frame):
         self.create_pager()
         self.pages[self.current_page_index]()
 
+    def clear_frame(self, frame):
+        for child in frame.winfo_children():
+            child.destroy()
+
     def create_page_container(self):
         self.page_container = tk.Frame(
             self.main_frame,
